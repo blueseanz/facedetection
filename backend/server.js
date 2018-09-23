@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 
 const database = {
@@ -10,18 +13,25 @@ const database = {
 		{
 			id: '123',
 			name: 'John',
-			email: 'john@gmail.com',
 			password: 'cookies',
+			email: 'john@gmail.com',
 			entries: 0,
 			joined: new Date()
 		},
 		{
 			id: '124',
 			name: 'Sally',
-			email: 'sally@gmail.com',
 			password: 'bananas',
+			email: 'sally@gmail.com',
 			entries: 0,
 			joined: new Date()
+		}
+	],
+	login: [
+		{
+			id: '987',
+			hash: '',
+			email: 'john@gmail.com'
 		}
 	]
 }
@@ -32,6 +42,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', (req,res) => {
+	console.log(req.body);
 	if (req.body.email === database.users[0].email &&
 		req.body.password === database.users[0].password) {
 		res.json('success');
@@ -92,5 +103,17 @@ app.listen(3000, () => {
 /register --> POST = user
 /profile/:userId --> GET = user
 /image --> PUT --> user
+
+bcrypt.hash("bacon", null, null, function(err, hash) {
+    // Store hash in your password DB.
+});
+
+// Load hash from your password DB.
+bcrypt.compare("bacon", hash, function(err, res) {
+    // res == true
+});
+bcrypt.compare("veggies", hash, function(err, res) {
+    // res = false
+});
 
 */
