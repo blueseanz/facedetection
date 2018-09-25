@@ -55,7 +55,7 @@ class Register extends React.Component {
 				        	type="text" 
 				        	name="name"  
 				        	id="name"
-				        	onchange={this.onNameChange}
+				        	onChange={this.onNameChange}
 				        />
 				      </div>
 				      <div className="mt3">
@@ -64,7 +64,7 @@ class Register extends React.Component {
 				        	type="email" 
 				        	name="email-address"  
 				        	id="email-address" 
-				        	onchange={this.onEmailChange}
+				        	onChange={this.onEmailChange}
 				        />
 				      </div>
 				      <div className="mv3">  
@@ -73,7 +73,7 @@ class Register extends React.Component {
 				        	type="password" 
 				        	name="password"  
 				        	id="password" 
-				        	onchange={this.onPasswordChange}
+				        	onChange={this.onPasswordChange}
 				        />
 				      </div>
 				    </fieldset> 
