@@ -17,12 +17,12 @@ const app = new Clarifai.App({
 const particlesOptions = {
   Particles: {
     line_linked: {
-                    shadow: {
-                      enable: true,
-                      color: "#3CA9D1",
-                      blur: 5
-                    }
-                  },
+      shadow: {
+        enable: true,
+        color: "#3CA9D1",
+        blur: 5
+      }
+    },
     number: {
       value: 300,
       density: {
@@ -84,7 +84,7 @@ class App extends Component {
   }
   
   onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input})
+    this.setState({imageUrl: this.state.input});
     app.models
       .predict(
         Clarifai.FACE_DETECT_MODEL, 
@@ -93,13 +93,14 @@ class App extends Component {
         if (response) {
           fetch('http://localhost:3000/image', {
             method: 'put',
-            headers: JSON.stringify({
+            headers: new Headers({'Content-Type': 'application/json'}),
+            body: JSON.stringify({
               id: this.state.user.id
             })
           })
             .then(response => response.json())
             .then(count => {
-              this.state(Object.assign(this.state.user, {
+              this.setState(Object.assign(this.state.user, {
                 entries: count
               }))
             })
@@ -129,7 +130,10 @@ class App extends Component {
         { route === 'home'
           ? <div>
               <Logo />
-              <Rank name={this.state.user.name} entries={this.state.user.entries}/>
+              <Rank 
+                name={this.state.user.name} 
+                entries={this.state.user.entries}
+              />
               <ImageLinkForm 
                 onInputChange={this.onInputChange} 
                 onButtonSubmit={this.onButtonSubmit}
@@ -143,6 +147,7 @@ class App extends Component {
             )
         }
       </div>
+
     );
   }
 }
